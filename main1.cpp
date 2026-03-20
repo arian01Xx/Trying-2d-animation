@@ -4,21 +4,24 @@
 #include <vector>
 #include <cmath>
 
-constexpr int TILE=15;
+constexpr int TILE=5;
 
 struct World{
     std::vector<std::vector<int>> world={
-        50, std::vector<int>(50,0)
+        200, std::vector<int>(200,0)
     };
 
-    int middle=50/2;
+    int middle=200/2;
 
     int row=world.size();
     int col=world[0].size();
 
     void draw(sf::RenderWindow& window){
         sf::RectangleShape block(sf::Vector2f(TILE, TILE));
-        block.setFillColor(sf::Color::Blue);
+        block.setFillColor(sf::Color::Black);
+
+        sf::CircleShape circle(float(TILE-1));
+        circle.setFillColor(sf::Color::Green);
 
         sf::VertexArray line1(sf::PrimitiveType::Lines, 2); //cantidad de vertices, en este caso, solo dos
         sf::VertexArray line2(sf::PrimitiveType::Lines, 2);
@@ -38,7 +41,10 @@ struct World{
                 if(world[i][j]==0){
                     block.setPosition(sf::Vector2f(j*TILE, i*TILE));
                     window.draw(block);
-                }
+                }/*else if(world[i][j]==1){
+                    circle.setPosition(sf::Vector2f(j*TILE, i*TILE));
+                    window.draw(circle);
+                }*/
             }
         }
 
@@ -49,15 +55,47 @@ struct World{
 
 struct Functions{
     void firstFunction(World& w, sf::RenderWindow& window){
-        for(int x=0; x<w.middle; x++){
-            int y=std::pow(x, 2);
+        sf::VertexArray curve(sf::PrimitiveType::LineStrip);
+        int scale=10;
+
+        //--------ZONA CAMARA-----
+        float offsetx=0;
+        float offsety=0;
+        float zoom=1.0f;
+        //------------------------
+
+        for(int x=-w.middle; x<w.middle; x++){
+            /*int y=(x*x)/scale;
             
+            if(y>=w.middle) continue; //evitar overflow
+            
+            int gx=x+w.middle;
+            int gy=w.middle-y; //invertir eje y
+                               
+            if(gy>=0 && gy<w.row && gx>=0 && gx<w.col) w.world[gy][gx]=1;*/
+
+            float y=(x*x)/float(scale);
+
+            float px=((x+w.middle)*TILE+offsetx)*zoom;
+            float py=((w.middle-y)*TILE+offsety)*zoom;
+
+            //curve.append(sf::Vertex(sf::Vector2f(px, py), sf::Color::Green));
+            sf::Vertex v;
+            v.position=sf::Vector2f(px,py);
+            v.color=sf::Color::Green;
+
+            curve.append(v);
         }
+
+        window.draw(curve);
     }
 };
 
 void execute(){
     World w;
+    Functions f;
+
+    //f.firstFunction(w);
 
     sf::RenderWindow window{
         sf::VideoMode({
@@ -74,7 +112,10 @@ void execute(){
         }
 
         window.clear();
-        w.draw(window);
+
+        w.draw(window); //FONDO PRIMERO
+        f.firstFunction(w, window); //CURVA ENCIMA
+
         window.display();
     }
 }
