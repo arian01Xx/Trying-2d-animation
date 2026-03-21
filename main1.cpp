@@ -1,5 +1,7 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics.hpp>
+#include <unordered_map>
+#include <functional>
 #include <iostream>
 #include <vector>
 #include <cmath>
@@ -53,6 +55,132 @@ struct World{
     }
 };
 
+struct Opcions{
+    std::unordered_map<int, std::function<void()>> functionMap;
+    std::unordered_map<int, sf::Text> mapText;
+
+    void init(sf::Font& font){
+        sf::Text rotLeft(font, "", 15);
+        rotLeft.setFillColor(sf::Color::Black);
+        mapText[1]=rotLeft;
+
+        sf::Text rotRight(font, "", 15);
+        rotRight.setFillColor(sf::Color::Black);
+        mapText[2]=rotRight;
+
+        sf::Text fSquare(font, "", 15);
+        fSquare.setFillColor(sf::Color::Black);
+        mapText[3]=fSquare;
+
+        sf::Text fSen(font, "", 15);
+        fSen.setFillColor(sf::Color::Black);
+        mapText[4]=fSen;
+
+        sf::Text fCos(font, "", 15);
+        fCos.setFillColor(sf::Color::Black);
+        mapText[5]=fCos;
+
+        sf::Text fTan(font, "", 15);
+        fTan.setFillColor(sf::Color::Black);
+        mapText[6]=fTan;
+
+        sf::Text fCosc(font, "", 15);
+        fCosc.setFillColor(sf::Color::Black);
+        mapText[7]=fCosc;
+
+        sf::Text fSec(font, "", 15);
+        fSec.setFillColor(sf::Color::Black);
+        mapText[8]=fSec;
+
+        sf::Text fCot(font, "", 15);
+        fCot.setFillColor(sf::Color::Black);
+        mapText[9]=fCot;
+    }
+
+    void drawingBoxes(sf::RenderWindow& window){
+        sf::RectangleShape box1(sf::Vector2f(TILE*20, TILE*10)); //anchura, altura
+        box1.setFillColor(sf::Color::Green);
+        box1.setPosition(sf::Vector2f(TILE*2, TILE*2));
+        window.draw(box1);
+
+        sf::RectangleShape box2(sf::Vector2f(TILE*20, TILE*10)); //anchura, altura
+        box2.setFillColor(sf::Color::Blue);
+        box2.setPosition(sf::Vector2f(TILE*2, TILE*14));
+        window.draw(box2);
+
+        sf::RectangleShape box3(sf::Vector2f(TILE*20, TILE*10)); //anchura, altura
+        box3.setFillColor(sf::Color::Yellow);
+        box3.setPosition(sf::Vector2f(TILE*2, TILE*26));
+        window.draw(box3);
+
+        sf::RectangleShape box4(sf::Vector2f(TILE*20, TILE*10)); //anchura, altura
+        box4.setFillColor(sf::Color::Red);
+        box4.setPosition(sf::Vector2f(TILE*2, TILE*38));
+        window.draw(box4);
+
+        sf::RectangleShape box5(sf::Vector2f(TILE*20, TILE*10)); //anchura, altura
+        box5.setFillColor(sf::Color::Cyan);
+        box5.setPosition(sf::Vector2f(TILE*2, TILE*50));
+        window.draw(box5);
+
+        sf::RectangleShape box6(sf::Vector2f(TILE*20, TILE*10)); //anchura, altura
+        box6.setFillColor(sf::Color::White);
+        box6.setPosition(sf::Vector2f(TILE*2, TILE*62));
+        window.draw(box6);
+
+        sf::RectangleShape box7(sf::Vector2f(TILE*20, TILE*10)); //anchura, altura
+        box7.setFillColor(sf::Color::Magenta);
+        box7.setPosition(sf::Vector2f(TILE*2, TILE*74));
+        window.draw(box7);
+
+        sf::RectangleShape box8(sf::Vector2f(TILE*20, TILE*10)); //anchura, altura
+        box8.setFillColor(sf::Color::Green);
+        box8.setPosition(sf::Vector2f(TILE*2, TILE*86));
+        window.draw(box8);
+
+        sf::RectangleShape box9(sf::Vector2f(TILE*20, TILE*10)); //anchura, altura
+        box9.setFillColor(sf::Color::Blue);
+        box9.setPosition(sf::Vector2f(TILE*2, TILE*98));
+        window.draw(box9);
+    }
+
+    /*void rotateLeft(){
+
+    }
+
+    void rotateRight(){
+
+    }
+
+    void funcSquare(){
+
+    }
+
+    void funcSen(){
+
+    }
+
+    void funcCos(){
+
+    }
+
+    void funcTan(){
+
+    }
+
+    void funcCosc(){
+
+    }
+
+    void funcSec(){
+
+    }
+
+    void funcCot(){
+
+    }*/
+};
+
 struct Functions{
     void firstFunction(World& w, sf::RenderWindow& window){
         sf::VertexArray curve(sf::PrimitiveType::LineStrip);
@@ -93,6 +221,7 @@ struct Functions{
 
 void execute(){
     World w;
+    Opcions o;
     Functions f;
 
     //f.firstFunction(w);
@@ -104,7 +233,14 @@ void execute(){
         }), "GRAPHICS 2D"
     };
 
-    window.setFramerateLimit(60); 
+    window.setFramerateLimit(60);
+
+    //------------------ZONA TEXT--------------------
+    sf::Font font;
+    if(!font,openFromFile("arial.ttf")) std::cerr<<"No se pudo cargar el archivo\n";
+
+    o.init(font); //este crea los textos que se usaràn
+    //-----------------------------------------------
 
     while(window.isOpen()){
         while(const std::optional event=window.pollEvent()){
@@ -115,6 +251,7 @@ void execute(){
 
         w.draw(window); //FONDO PRIMERO
         f.firstFunction(w, window); //CURVA ENCIMA
+        o.drawingBoxes(window);
 
         window.display();
     }
