@@ -121,6 +121,8 @@ struct Opcions{
         texts.push_back(fCot);
     }
 
+    //I DON'T HAVE FUCKING TIMEEEE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!º
+
     void drawingBoxes(World& w, sf::RenderWindow& window){
         sf::RectangleShape box1(sf::Vector2f(TILE*20, TILE*10)); //anchura, altura
         box1.setFillColor(sf::Color::Green);
@@ -341,6 +343,7 @@ bool verify(BOXES& box, int& row, int& col){
        col>=box.position.first && col<((box.position.first/TILE)+box.value2)*TILE){
         std::cout<<"ROW: "<<row<<", box.position.second: "<<box.position.second<<std::endl;
         std::cout<<"COL: "<<col<<", box.position.first: "<<box.position.first<<std::endl;
+        std::cout<<"Box: "<<
         return true;
     }
     return false;
