@@ -30,7 +30,7 @@ struct World{
     std::vector<BOXES> boxes;
 
     enum FUNCTION{ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE};
-    FUNCTION fun=THREE;
+    FUNCTION fun=THREE; 
 
     void draw(sf::RenderWindow& window){
         sf::RectangleShape block(sf::Vector2f(TILE, TILE));
@@ -121,19 +121,68 @@ struct Opcions{
         texts.push_back(fCot);
     }
 
-    //I DON'T HAVE FUCKING TIMEEEE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!º
+    //I DON'T HAVE FUCKING TIMEEEE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    void saveBoxes(World& w){
+        BOXES Box1;
+        Box1.position={TILE*2, TILE*2}; //columna, fila
+        Box1.weight=TILE*20; //anchura
+        Box1.height=TILE*10; //altura
+        w.boxes.push_back(Box1);
+
+        BOXES Box2;
+        Box2.position={TILE*2, TILE*14};
+        Box2.weight=TILE*20;
+        Box2.height=TILE*10;
+        w.boxes.push_back(Box2);
+
+        BOXES Box3;
+        Box3.position={TILE*2, TILE*26};
+        Box3.weight=TILE*20;
+        Box3.height=TILE*10;
+        w.boxes.push_back(Box3);
+
+        BOXES Box4;
+        Box4.position={TILE*2, TILE*38};
+        Box4.weight=TILE*20;
+        Box4.height=TILE*10;
+        w.boxes.push_back(Box4);
+
+        BOXES Box5;
+        Box5.position={TILE*2, TILE*50};
+        Box5.weight=TILE*20;
+        Box5.height=TILE*10;
+        w.boxes.push_back(Box5);
+
+        BOXES Box6;
+        Box6.position={TILE*2, TILE*62};
+        Box6.weight=TILE*20;
+        Box6.height=TILE*10;
+        w.boxes.push_back(Box6);
+
+        BOXES Box7;
+        Box7.position={TILE*2, TILE*74};
+        Box7.weight=TILE*20;
+        Box7.height=TILE*10;
+        w.boxes.push_back(Box7);
+
+        BOXES Box8;
+        Box8.position={TILE*2, TILE*86};
+        Box8.weight=TILE*20;
+        Box8.height=TILE*10;
+        w.boxes.push_back(Box8);
+
+        BOXES Box9;
+        Box9.position={TILE*2, TILE*98};
+        Box9.weight=TILE*20;
+        Box9.height=TILE*10;
+        w.boxes.push_back(Box9);
+    }
 
     void drawingBoxes(World& w, sf::RenderWindow& window){
         sf::RectangleShape box1(sf::Vector2f(TILE*20, TILE*10)); //anchura, altura
         box1.setFillColor(sf::Color::Green);
         box1.setPosition(sf::Vector2f(TILE*2, TILE*2));
-        window.draw(box1);
-
-        BOXES Box1;
-        Box1.position={TILE*2, TILE*2};
-        Box1.weight=TILE*20;
-        Box1.height=TILE*10;
-         w.boxes.push_back(Box1);
+        window.draw(box1); 
         
         texts[0].setString("Rotate to\n the Left");
         texts[0].setPosition(sf::Vector2f(TILE*3, TILE*3));
@@ -142,13 +191,7 @@ struct Opcions{
         sf::RectangleShape box2(sf::Vector2f(TILE*20, TILE*10)); //anchura, altura
         box2.setFillColor(sf::Color::Blue);
         box2.setPosition(sf::Vector2f(TILE*2, TILE*14));
-        window.draw(box2);
-
-        BOXES Box2;
-        Box2.position={TILE*2, TILE*14};
-        Box2.weight=TILE*20;
-        Box2.height=TILE*10;
-        w.boxes.push_back(Box2);
+        window.draw(box2); 
 
         texts[1].setString("Rotate to\n the Right");
         texts[1].setPosition(sf::Vector2f(TILE*3, TILE*15));
@@ -157,13 +200,7 @@ struct Opcions{
         sf::RectangleShape box3(sf::Vector2f(TILE*20, TILE*10)); //anchura, altura
         box3.setFillColor(sf::Color::Yellow);
         box3.setPosition(sf::Vector2f(TILE*2, TILE*26));
-        window.draw(box3);
-
-        BOXES Box3;
-        Box3.position={TILE*2, TILE*26};
-        Box3.weight=TILE*20;
-        Box3.height=TILE*10;
-        w.boxes.push_back(Box3);
+        window.draw(box3); 
 
         texts[2].setString("f(x)=y=x^2");
         texts[2].setPosition(sf::Vector2f(TILE*3, TILE*27));
@@ -172,13 +209,7 @@ struct Opcions{
         sf::RectangleShape box4(sf::Vector2f(TILE*20, TILE*10)); //anchura, altura
         box4.setFillColor(sf::Color::Red);
         box4.setPosition(sf::Vector2f(TILE*2, TILE*38));
-        window.draw(box4);
-
-        BOXES Box4;
-        Box4.position={TILE*2, TILE*38};
-        Box4.weight=TILE*20;
-        Box4.height=TILE*10;
-        w.boxes.push_back(Box4);
+        window.draw(box4); 
 
         texts[3].setString("f(x)=y=sen(x)");
         texts[3].setPosition(sf::Vector2f(TILE*3, TILE*39));
@@ -189,12 +220,6 @@ struct Opcions{
         box5.setPosition(sf::Vector2f(TILE*2, TILE*50));
         window.draw(box5);
 
-        BOXES Box5;
-        Box5.position={TILE*2, TILE*50};
-        Box5.weight=TILE*20;
-        Box5.height=TILE*10;
-        w.boxes.push_back(Box5);
-
         texts[4].setString("f(x)=y=cos(x)");
         texts[4].setPosition(sf::Vector2f(TILE*3, TILE*51));
         window.draw(texts[4]);
@@ -202,13 +227,7 @@ struct Opcions{
         sf::RectangleShape box6(sf::Vector2f(TILE*20, TILE*10)); //anchura, altura
         box6.setFillColor(sf::Color::White);
         box6.setPosition(sf::Vector2f(TILE*2, TILE*62));
-        window.draw(box6);
-
-        BOXES Box6;
-        Box6.position={TILE*2, TILE*62};
-        Box6.weight=TILE*20;
-        Box6.height=TILE*10;
-        w.boxes.push_back(Box6);
+        window.draw(box6); 
 
         texts[5].setString("f(x)=y=tan(x)");
         texts[5].setPosition(sf::Vector2f(TILE*3, TILE*63));
@@ -217,13 +236,7 @@ struct Opcions{
         sf::RectangleShape box7(sf::Vector2f(TILE*20, TILE*10)); //anchura, altura
         box7.setFillColor(sf::Color::Magenta);
         box7.setPosition(sf::Vector2f(TILE*2, TILE*74));
-        window.draw(box7);
-
-        BOXES Box7;
-        Box7.position={TILE*2, TILE*74};
-        Box7.weight=TILE*20;
-        Box7.height=TILE*10;
-        w.boxes.push_back(Box7);
+        window.draw(box7); 
 
         texts[6].setString("f(x)=y=cosc(x)");
         texts[6].setPosition(sf::Vector2f(TILE*3, TILE*75));
@@ -232,13 +245,7 @@ struct Opcions{
         sf::RectangleShape box8(sf::Vector2f(TILE*20, TILE*10)); //anchura, altura
         box8.setFillColor(sf::Color::Green);
         box8.setPosition(sf::Vector2f(TILE*2, TILE*86));
-        window.draw(box8);
-
-        BOXES Box8;
-        Box8.position={TILE*2, TILE*86};
-        Box8.weight=TILE*20;
-        Box8.height=TILE*10;
-        w.boxes.push_back(Box8);
+        window.draw(box8); 
 
         texts[7].setString("f(x)=y=sec(x)");
         texts[7].setPosition(sf::Vector2f(TILE*3, TILE*87));
@@ -248,12 +255,6 @@ struct Opcions{
         box9.setFillColor(sf::Color::Blue);
         box9.setPosition(sf::Vector2f(TILE*2, TILE*98));
         window.draw(box9);
-
-        BOXES Box9;
-        Box9.position={TILE*2, TILE*98};
-        Box9.weight=TILE*20;
-        Box9.height=TILE*10;
-        w.boxes.push_back(Box9);
 
         texts[8].setString("f(x)=y=cot(x)");
         texts[8].setPosition(sf::Vector2f(TILE*3, TILE*99));
@@ -300,14 +301,16 @@ struct Functions{
     }
 
     void rotateLeft(World& w, sf::RenderWindow& window){
-
+        std::cout<<"rotateLeft!"<<std::endl;
     }
 
     void rotateRight(World& w, sf::RenderWindow& window){
-
+        std::cout<<"rotateRight!"<<std::endl;
     }
 
     void funcSquare(World& w, sf::RenderWindow& window, Camera& cam){
+        std::cout<<"funcSquare"<<std::endl;
+
         sf::VertexArray curve(sf::PrimitiveType::LineStrip);
         int scale=10; 
 
@@ -339,15 +342,24 @@ struct Functions{
 };
 
 bool verify(BOXES& box, int& row, int& col){
+    return (
+        col >= box.position.first &&
+        col <= box.position.first + box.weight &&
+        row >= box.position.second &&
+        row <= box.position.second + box.height
+    );
+}
+
+/*bool verify(BOXES& box, int& row, int& col){
+    //  CREO QUE EL PROBLEMA ESTA AQUI
     if(row>=box.position.second && row<((box.position.second/TILE)+box.value1)*TILE &&
        col>=box.position.first && col<((box.position.first/TILE)+box.value2)*TILE){
         std::cout<<"ROW: "<<row<<", box.position.second: "<<box.position.second<<std::endl;
         std::cout<<"COL: "<<col<<", box.position.first: "<<box.position.first<<std::endl;
-        std::cout<<"Box: "<<
         return true;
     }
     return false;
-}
+}*/
 
 void drawAxisNumbers(sf::RenderWindow& window, World& w, Camera& cam, sf::Font& font){
     int width = window.getSize().x;
@@ -399,33 +411,35 @@ void execute(){
 
     window.setFramerateLimit(60);
 
+    o.saveBoxes(w);
+
     //------------------ZONA TEXT--------------------
     sf::Font font;
     if(!font.openFromFile("arial.ttf")) std::cerr<<"No se pudo cargar el archivo\n";
 
-    o.init(font); //este crea los textos que se usaràn
+    o.init(font); //este crea los textos que se usarà
     //-----------------------------------------------
 
     while(window.isOpen()){
         while(const std::optional event=window.pollEvent()){
             if(event->is<sf::Event::Closed>()) window.close();
             if(const auto* mouseButtonPressed=event->getIf<sf::Event::MouseButtonPressed>()){
-                int col=mouseButtonPressed->position.x/TILE;
-                int row=mouseButtonPressed->position.y/TILE;
+                int col=mouseButtonPressed->position.x; //LE EH BORRADO TILE
+                int row=mouseButtonPressed->position.y;
 
                 std::cout<<"COL MOUSE: "<<col<<std::endl;
                 std::cout<<"ROW MOUSE: "<<row<<std::endl;
                 
                 //TIENE QUE SER CAJA POR CAJA
-                if(verify(w.boxes[0], col, row)) w.fun=w.FUNCTION::ONE;
-                else if(verify(w.boxes[1], col, row)) w.fun=w.FUNCTION::TWO;
-                else if(verify(w.boxes[2], col, row)) w.fun=w.FUNCTION::THREE;
-                else if(verify(w.boxes[3], col, row)) w.fun=w.FUNCTION::FOUR;
-                else if(verify(w.boxes[4], col, row)) w.fun=w.FUNCTION::FIVE;
-                else if(verify(w.boxes[5], col, row)) w.fun=w.FUNCTION::SIX;
-                else if(verify(w.boxes[6], col, row)) w.fun=w.FUNCTION::SEVEN;
-                else if(verify(w.boxes[7], col, row)) w.fun=w.FUNCTION::EIGHT;
-                else if(verify(w.boxes[8], col, row)) w.fun=w.FUNCTION::NINE;
+                if(verify(w.boxes[0], row, col)) w.fun=w.FUNCTION::ONE;
+                else if(verify(w.boxes[1], row, col)) w.fun=w.FUNCTION::TWO;
+                else if(verify(w.boxes[2], row, col)) w.fun=w.FUNCTION::THREE;
+                else if(verify(w.boxes[3], row, col)) w.fun=w.FUNCTION::FOUR;
+                else if(verify(w.boxes[4], row, col)) w.fun=w.FUNCTION::FIVE;
+                else if(verify(w.boxes[5], row, col)) w.fun=w.FUNCTION::SIX;
+                else if(verify(w.boxes[6], row, col)) w.fun=w.FUNCTION::SEVEN;
+                else if(verify(w.boxes[7], row, col)) w.fun=w.FUNCTION::EIGHT;
+                else if(verify(w.boxes[8], row, col)) w.fun=w.FUNCTION::NINE;
             }
         }
 
