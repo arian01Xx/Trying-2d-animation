@@ -57,10 +57,7 @@ struct World{
                 if(world[i][j]==0){
                     block.setPosition(sf::Vector2f(j*TILE, i*TILE));
                     window.draw(block);
-                }/*else if(world[i][j]==1){
-                    circle.setPosition(sf::Vector2f(j*TILE, i*TILE));
-                    window.draw(circle);
-                }*/
+                }
             }
         }
 
@@ -260,31 +257,6 @@ struct Opcions{
         texts[8].setPosition(sf::Vector2f(TILE*3, TILE*99));
         window.draw(texts[8]);
     }
-
-    /*
-    void funcSen(){
-
-    }
-
-    void funcCos(){
-
-    }
-
-    void funcTan(){
-
-    }
-
-    void funcCosc(){
-
-    }
-
-    void funcSec(){
-
-    }
-
-    void funcCot(){
-
-    }*/
 };
 
 struct Camera{
@@ -298,6 +270,12 @@ struct Functions{
         if(w.fun==w.FUNCTION::ONE) rotateLeft(w, window);
         if(w.fun==w.FUNCTION::TWO) rotateRight(w, window);
         if(w.fun==w.FUNCTION::THREE) funcSquare(w, window, cam);
+        if(w.fun==w.FUNCTION::FOUR) funcSen(w, window, cam);
+        if(w.fun==w.FUNCTION::FIVE) funcCos(w, window, cam);
+        if(w.fun==w.FUNCTION::SIX) funcTan(w, window, cam);
+        if(w.fun==w.FUNCTION::SEVEN) funcCosc(w, window, cam);
+        if(w.fun==w.FUNCTION::EIGHT) funcSec(w, window, cam);
+        if(w.fun==w.FUNCTION::NINE) funcCot(w, window, cam);
     }
 
     void rotateLeft(World& w, sf::RenderWindow& window){
@@ -309,7 +287,7 @@ struct Functions{
     }
 
     void funcSquare(World& w, sf::RenderWindow& window, Camera& cam){
-        std::cout<<"funcSquare"<<std::endl;
+        //std::cout<<"funcSquare"<<std::endl;
 
         sf::VertexArray curve(sf::PrimitiveType::LineStrip);
         int scale=10; 
@@ -339,6 +317,134 @@ struct Functions{
 
         window.draw(curve);
     }
+
+    
+    void funcSen(World& w, sf::RenderWindow& window, Camera& cam){
+        sf::VertexArray curve(sf::PrimitiveType::LineStrip);
+        //int scale=1;
+        float amplitude=10.0f;
+
+        for(int x=-w.middle; x<w.middle; x++){
+            float freq=0.15f;
+            float y=std::sin(x*freq)*amplitude; ///float(scale);
+
+            float px=((x+w.middle)*TILE+cam.offsetx)*cam.zoom;
+            float py=((w.middle-y)*TILE+cam.offsety)*cam.zoom;
+
+            sf::Vertex v;
+            v.position=sf::Vector2f(px,py);
+            v.color=sf::Color::Green;
+
+            curve.append(v);
+        }
+
+        window.draw(curve);
+    }
+
+    void funcCos(World& w, sf::RenderWindow& window, Camera& cam){
+        sf::VertexArray curve(sf::PrimitiveType::LineStrip);
+        float amplitude=10.0f;
+
+        for(int x=-w.middle; x<w.middle; x++){
+            float freq=0.15f;
+            float y=std::cos(x*freq)*amplitude;
+
+            float px=((x+w.middle)*TILE+cam.offsetx)*cam.zoom;
+            float py=((w.middle-y)*TILE+cam.offsety)*cam.zoom;
+
+            sf::Vertex v;
+            v.position=sf::Vector2f(px,py);
+            v.color=sf::Color::Green;
+
+            curve.append(v);
+        }
+
+        window.draw(curve);
+    }
+
+    void funcTan(World& w, sf::RenderWindow& window, Camera& cam){
+        sf::VertexArray curve(sf::PrimitiveType::LineStrip);
+        float amplitude=10.0f;
+
+        for(int x=-w.middle; x<w.middle; x++){
+            float freq=0.15f;
+            float y=std::tan(x*freq)*amplitude;
+
+            float px=((x+w.middle)*TILE+cam.offsetx)*cam.zoom;
+            float py=((w.middle-y)*TILE+cam.offsety)*cam.zoom;
+
+            sf::Vertex v;
+            v.position=sf::Vector2f(px,py);
+            v.color=sf::Color::Green;
+
+            curve.append(v);
+        }
+
+        window.draw(curve);
+    }
+    
+    void funcCosc(World& w, sf::RenderWindow& window, Camera& cam){
+        sf::VertexArray curve(sf::PrimitiveType::LineStrip);
+        float amplitude=10.0f;
+
+        for(int x=-w.middle; x<w.middle; x++){
+            float freq=0.15f;
+            float y=(1/std::sin(x*freq))*amplitude;
+
+            float px=((x+w.middle)*TILE+cam.offsetx)*cam.zoom;
+            float py=((w.middle-y)*TILE+cam.offsety)*cam.zoom;
+
+            sf::Vertex v;
+            v.position=sf::Vector2f(px,py);
+            v.color=sf::Color::Green;
+
+            curve.append(v);
+        }
+
+        window.draw(curve);
+    }
+    
+    void funcSec(World& w, sf::RenderWindow& window, Camera& cam){
+        sf::VertexArray curve(sf::PrimitiveType::LineStrip);
+        float amplitude=10.0f;
+
+        for(int x=-w.middle; x<w.middle; x++){
+            float freq=0.15f;
+            float y=(1/std::cos(x*freq))*amplitude;
+
+            float px=((x+w.middle)*TILE+cam.offsetx)*cam.zoom;
+            float py=((w.middle-y)*TILE+cam.offsety)*cam.zoom;
+
+            sf::Vertex v;
+            v.position=sf::Vector2f(px,py);
+            v.color=sf::Color::Green;
+
+            curve.append(v);
+        }
+
+        window.draw(curve);
+    }
+    
+    void funcCot(World& w, sf::RenderWindow& window, Camera& cam){
+        sf::VertexArray curve(sf::PrimitiveType::LineStrip);
+        float amplitude=10.0f;
+
+        for(int x=-w.middle; x<w.middle; x++){
+            float freq=0.15f;
+            float y=(1/std::tan(x*freq))*amplitude;
+
+            float px=((x+w.middle)*TILE+cam.offsetx)*cam.zoom;
+            float py=((w.middle-y)*TILE+cam.offsety)*cam.zoom;
+
+            sf::Vertex v;
+            v.position=sf::Vector2f(px,py);
+            v.color=sf::Color::Green;
+
+            curve.append(v);
+        }
+
+        window.draw(curve);
+    }
 };
 
 bool verify(BOXES& box, int& row, int& col){
@@ -349,17 +455,6 @@ bool verify(BOXES& box, int& row, int& col){
         row <= box.position.second + box.height
     );
 }
-
-/*bool verify(BOXES& box, int& row, int& col){
-    //  CREO QUE EL PROBLEMA ESTA AQUI
-    if(row>=box.position.second && row<((box.position.second/TILE)+box.value1)*TILE &&
-       col>=box.position.first && col<((box.position.first/TILE)+box.value2)*TILE){
-        std::cout<<"ROW: "<<row<<", box.position.second: "<<box.position.second<<std::endl;
-        std::cout<<"COL: "<<col<<", box.position.first: "<<box.position.first<<std::endl;
-        return true;
-    }
-    return false;
-}*/
 
 void drawAxisNumbers(sf::RenderWindow& window, World& w, Camera& cam, sf::Font& font){
     int width = window.getSize().x;
