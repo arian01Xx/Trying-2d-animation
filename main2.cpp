@@ -299,6 +299,13 @@ struct Functions{
         }
         if(w.fun==w.FUNCTION::TWO){
             rotRight=true;
+            if(selected==Square) funcSquare(w, window, cam);
+            if(selected==Sin) funcSen(w, window, cam);
+            if(selected==Cos) funcCos(w, window, cam);
+            if(selected==Tan) funcTan(w, window, cam);
+            if(selected==Cosc) funcCosc(w, window, cam);
+            if(selected==Sec) funcSec(w, window, cam);
+            if(selected==Cot) funcCot(w, window, cam);
         }
         if(w.fun==w.FUNCTION::THREE){
             rotLeft=false;
