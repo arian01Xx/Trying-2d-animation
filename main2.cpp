@@ -272,6 +272,7 @@ struct Camera{
 };
 
 struct Functions{
+    float angle=0.0f;
 
     enum Selected{Nothing, Square, Sin, Cos, Tan, Cosc, Sec, Cot};
     Selected selected=Nothing;
@@ -279,7 +280,7 @@ struct Functions{
     bool rotLeft=false;
     bool rotRight=false;
     
-    inline void rotate(float& x, float& y, float angle){
+    inline void rotate(float& x, float& y, float& angle){
         float xr=x*std::cos(angle) - y*std::sin(angle);
         float yr=x*std::sin(angle) + y*std::cos(angle);
         x=xr;
@@ -287,8 +288,12 @@ struct Functions{
     }
 
     void selection(World& w, sf::RenderWindow& window, Camera& cam){
+        if(rotLeft) angle+=0.01f;
+        if(rotRight) angle-=0.01f;
+
         if(w.fun==w.FUNCTION::ONE){
             rotLeft=true;
+            rotRight=false; //AGREGADO
             if(selected==Square) funcSquare(w, window, cam);
             if(selected==Sin) funcSen(w, window, cam);
             if(selected==Cos) funcCos(w, window, cam);
@@ -298,6 +303,7 @@ struct Functions{
             if(selected==Cot) funcCot(w, window, cam);
         }
         if(w.fun==w.FUNCTION::TWO){
+            rotLeft=false; //agregado
             rotRight=true;
             if(selected==Square) funcSquare(w, window, cam);
             if(selected==Sin) funcSen(w, window, cam);
@@ -308,42 +314,49 @@ struct Functions{
             if(selected==Cot) funcCot(w, window, cam);
         }
         if(w.fun==w.FUNCTION::THREE){
+            angle=0.0f;
             rotLeft=false;
             rotRight=false;
             selected=Square;
             funcSquare(w, window, cam);
         }
         if(w.fun==w.FUNCTION::FOUR){
+            angle=0.0f;
             rotLeft=false;
             rotRight=false;
             selected=Sin;
             funcSen(w, window, cam);
         }
         if(w.fun==w.FUNCTION::FIVE){
+            angle=0.0f;
             rotLeft=false;
             rotRight=false;
             selected=Cos;
             funcCos(w, window, cam);
         }
         if(w.fun==w.FUNCTION::SIX){
+            angle=0.0f;
             rotLeft=false;
             rotRight=false;
             selected=Tan;
             funcTan(w, window, cam);
         }
         if(w.fun==w.FUNCTION::SEVEN){
+            angle=0.0f;
             rotLeft=false;
             rotRight=false;
             selected=Cosc;
             funcCosc(w, window, cam);
         }
         if(w.fun==w.FUNCTION::EIGHT){
+            angle=0.0f;
             rotLeft=false;
             rotRight=false;
             selected=Sec;
             funcSec(w, window, cam);
         }
         if(w.fun==w.FUNCTION::NINE){
+            angle=0.0f;
             rotLeft=false;
             rotRight=false;
             selected=Cot;
@@ -355,14 +368,13 @@ struct Functions{
         sf::VertexArray curve(sf::PrimitiveType::LineStrip);
         int scale=10;
 
-        float angle=0.5f; //controla rotacion
-
         for(int x=-w.middle; x<w.middle; x++){
             float xf=float(x);
             float y=(x*x)/float(scale);
 
             //ROTACION
             if(rotLeft && selected==Square) rotate(xf, y, angle);
+            if(rotRight && selected==Square) rotate(xf, y, angle);
 
             float px=((xf+w.middle)*TILE+cam.offsetx)*cam.zoom;
             float py=((w.middle-y)*TILE+cam.offsety)*cam.zoom;
@@ -381,10 +393,15 @@ struct Functions{
         float amplitude=10.0f;
 
         for(int x=-w.middle; x<w.middle; x++){
+            float xf=float(x);
             float freq=0.15f;
             float y=std::sin(x*freq)*amplitude; ///float(scale);
+                                                
+            //ROTACION
+            if(rotLeft && selected==Sin) rotate(xf, y, angle);
+            if(rotRight && selected==Sin) rotate(xf, y, angle);
 
-            float px=((x+w.middle)*TILE+cam.offsetx)*cam.zoom;
+            float px=((xf+w.middle)*TILE+cam.offsetx)*cam.zoom;
             float py=((w.middle-y)*TILE+cam.offsety)*cam.zoom;
 
             sf::Vertex v;
@@ -400,11 +417,18 @@ struct Functions{
         sf::VertexArray curve(sf::PrimitiveType::LineStrip);
         float amplitude=10.0f;
 
+        //float angle=0.5f;
+
         for(int x=-w.middle; x<w.middle; x++){
+            float xf=float(x);
             float freq=0.15f;
             float y=std::cos(x*freq)*amplitude;
 
-            float px=((x+w.middle)*TILE+cam.offsetx)*cam.zoom;
+            //ROTACION
+            if(rotLeft && selected==Cos) rotate(xf, y, angle);
+            if(rotRight && selected==Cos) rotate(xf, y, angle);
+
+            float px=((xf+w.middle)*TILE+cam.offsetx)*cam.zoom;
             float py=((w.middle-y)*TILE+cam.offsety)*cam.zoom;
 
             sf::Vertex v;
@@ -420,12 +444,18 @@ struct Functions{
     void funcTan(World& w, sf::RenderWindow& window, Camera& cam){
         sf::VertexArray curve(sf::PrimitiveType::LineStrip);
         float amplitude=10.0f;
+        //float angle=0.5f;
 
         for(int x=-w.middle; x<w.middle; x++){
+            float xf=float(x);
             float freq=0.15f;
             float y=std::tan(x*freq)*amplitude;
 
-            float px=((x+w.middle)*TILE+cam.offsetx)*cam.zoom;
+            //ROTACION
+            if(rotLeft && selected==Tan) rotate(xf, y, angle);
+            if(rotRight && selected==Tan) rotate(xf, y, angle);
+
+            float px=((xf+w.middle)*TILE+cam.offsetx)*cam.zoom;
             float py=((w.middle-y)*TILE+cam.offsety)*cam.zoom;
 
             sf::Vertex v;
@@ -441,12 +471,18 @@ struct Functions{
     void funcCosc(World& w, sf::RenderWindow& window, Camera& cam){
         sf::VertexArray curve(sf::PrimitiveType::LineStrip);
         float amplitude=10.0f;
+        //float angle=0.5f;
 
         for(int x=-w.middle; x<w.middle; x++){
+            float xf=float(x);
             float freq=0.15f;
             float y=(1/std::sin(x*freq))*amplitude;
 
-            float px=((x+w.middle)*TILE+cam.offsetx)*cam.zoom;
+            //ROTACION
+            if(rotLeft && selected==Cosc) rotate(xf, y, angle);
+            if(rotRight && selected==Cosc) rotate(xf, y, angle);
+
+            float px=((xf+w.middle)*TILE+cam.offsetx)*cam.zoom;
             float py=((w.middle-y)*TILE+cam.offsety)*cam.zoom;
 
             sf::Vertex v;
@@ -462,12 +498,18 @@ struct Functions{
     void funcSec(World& w, sf::RenderWindow& window, Camera& cam){
         sf::VertexArray curve(sf::PrimitiveType::LineStrip);
         float amplitude=10.0f;
+        //float angle=0.5f;
 
         for(int x=-w.middle; x<w.middle; x++){
+            float xf=float(x);
             float freq=0.15f;
             float y=(1/std::cos(x*freq))*amplitude;
 
-            float px=((x+w.middle)*TILE+cam.offsetx)*cam.zoom;
+            //ROTACION
+            if(rotLeft && selected==Sec) rotate(xf, y, angle);
+            if(rotRight && selected==Sec) rotate(xf, y, angle);
+
+            float px=((xf+w.middle)*TILE+cam.offsetx)*cam.zoom;
             float py=((w.middle-y)*TILE+cam.offsety)*cam.zoom;
 
             sf::Vertex v;
@@ -483,12 +525,18 @@ struct Functions{
     void funcCot(World& w, sf::RenderWindow& window, Camera& cam){
         sf::VertexArray curve(sf::PrimitiveType::LineStrip);
         float amplitude=10.0f;
+        //float angle=0.5f;
 
         for(int x=-w.middle; x<w.middle; x++){
+            float xf=float(x);
             float freq=0.15f;
             float y=(1/std::tan(x*freq))*amplitude;
 
-            float px=((x+w.middle)*TILE+cam.offsetx)*cam.zoom;
+            //ROTACION
+            if(rotLeft && selected==Cot) rotate(xf, y, angle);
+            if(rotRight && selected==Cot) rotate(xf, y, angle);
+
+            float px=((xf+w.middle)*TILE+cam.offsetx)*cam.zoom;
             float py=((w.middle-y)*TILE+cam.offsety)*cam.zoom;
 
             sf::Vertex v;
@@ -550,8 +598,6 @@ void execute(){
     Camera cam;
     Functions f;
 
-    //f.firstFunction(w);
-
     sf::RenderWindow window{
         sf::VideoMode({
                 static_cast<unsigned>(TILE*w.col), //COLUMNAS 
@@ -577,8 +623,8 @@ void execute(){
                 int col=mouseButtonPressed->position.x; //LE EH BORRADO TILE
                 int row=mouseButtonPressed->position.y;
 
-                std::cout<<"COL MOUSE: "<<col<<std::endl;
-                std::cout<<"ROW MOUSE: "<<row<<std::endl;
+                //std::cout<<"COL MOUSE: "<<col<<std::endl;
+                //std::cout<<"ROW MOUSE: "<<row<<std::endl;
                 
                 //TIENE QUE SER CAJA POR CAJA
                 if(verify(w.boxes[0], row, col)) w.fun=w.FUNCTION::ONE;
@@ -599,7 +645,6 @@ void execute(){
 
         w.draw(window); //FONDO PRIMERO
         f.selection(w, window, cam);
-        //f.firstFunction(w, window); //CURVA ENCIMA
         drawAxisNumbers(window, w, cam, font);
         o.drawingBoxes(w, window);
 
